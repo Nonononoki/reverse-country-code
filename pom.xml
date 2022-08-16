@@ -6,7 +6,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <artifactId>reverse-country-code</artifactId>
   <name>reverse-country-code</name>
-  <url>https://github.com/bencampion/reverse-country-code</url>
+  <url>https://github.com/nonononoki/reverse-country-code</url>
   <description>A reverse geocoder that converts latitude and longitude coordinates to information
     about a country such as names, ISO codes and locales.
   </description>
@@ -20,24 +20,24 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.8.1</version>
+      <version>2.13.3</version>
     </dependency>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>6.10</version>
-      <scope>test</scope>
-    </dependency>
+	<dependency>
+	    <groupId>org.junit.jupiter</groupId>
+	    <artifactId>junit-jupiter-engine</artifactId>
+	    <version>5.9.0</version>
+	    <scope>test</scope>
+	</dependency>
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-core</artifactId>
-      <version>1.17.3</version>
+      <version>1.35</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-generator-annprocess</artifactId>
-      <version>1.17.3</version>
+      <version>1.35</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -46,7 +46,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-failsafe-plugin</artifactId>
-        <version>2.19.1</version>
+        <version>3.0.0-M7</version>
         <configuration>
           <properties>
             <property>
@@ -67,7 +67,7 @@
       <plugin>
         <groupId>com.googlecode.maven-download-plugin</groupId>
         <artifactId>download-maven-plugin</artifactId>
-        <version>1.2.1</version>
+        <version>1.6.1</version>
         <configuration>
           <skipCache>true</skipCache>
           <overwrite>true</overwrite>
