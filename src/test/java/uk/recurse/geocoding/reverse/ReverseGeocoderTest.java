@@ -1,48 +1,50 @@
 package uk.recurse.geocoding.reverse;
 
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.testng.Assert.assertEquals;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+@TestInstance(Lifecycle.PER_CLASS)
 public class ReverseGeocoderTest {
 
-    private ReverseGeocoder geocoder;
+	private ReverseGeocoder geocoder;
 
-    @DataProvider
-    public Iterator<Object[]> cities() {
-        InputStream in = ReverseGeocoderTest.class.getResourceAsStream("/baselineCities.txt");
-        return new BufferedReader(new InputStreamReader(in, UTF_8)).lines()
-                .map(line -> line.split("\t"))
-                .map(row -> {
-                    float lat = Float.parseFloat(row[0]);
-                    float lon = Float.parseFloat(row[1]);
-                    return new Object[] { lat, lon, row[2] };
-                })
-                .iterator();
-    }
+	@BeforeAll
+	void setup() {
+		geocoder = new ReverseGeocoder();
+	}
 
-    @BeforeClass
-    public void setup() {
-        geocoder = new ReverseGeocoder();
-    }
+	public void reverseGeocoding() {
 
-    @Test(dataProvider = "cities")
-    public void reverseGeocoding(float lat, float lon, String expectedIso) {
-        String actualIso = geocoder.getCountry(lat, lon).map(Country::iso).orElse("null");
+		InputStream in = ReverseGeocoderTest.class.getResourceAsStream("/baselineCities.txt");
+		final List<Object[]> cities = new BufferedReader(new InputStreamReader(in, UTF_8)).lines()
+				.map(line -> line.split("\t")).map(row -> {
+					float lat = Float.parseFloat(row[0]);
+					float lon = Float.parseFloat(row[1]);
+					return new Object[] { lat, lon, row[2] };
+				}).collect(Collectors.toList());
 
-        assertEquals(actualIso, expectedIso, "lat=" + lat + " lon=" + lon);
-    }
+		for (Object[] o : cities) {
+			float lat = (float) o[0];
+			float lon = (float) o[1];
+			String expectedIso = (String) o[2];
+			String actualIso = geocoder.getCountry(lat, lon).map(Country::iso).orElse("null");
+			assertEquals(actualIso, expectedIso, "lat=" + lat + " lon=" + lon);
+		}
+	}
 
-    @Test
-    public void streaming() {
-        assertEquals(geocoder.countries().count(), 247);
-    }
+	@Test
+	public void streaming() {
+		assertEquals(geocoder.countries().count(), 247);
+	}
 }

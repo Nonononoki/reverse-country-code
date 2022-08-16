@@ -1,13 +1,13 @@
 package uk.recurse.geocoding.reverse;
 
-import org.testng.annotations.Test;
+import static java.util.stream.Collectors.toList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
-import static java.util.stream.Collectors.toList;
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertSame;
+import org.junit.jupiter.api.Test;
 
 public class SortTileRecursiveTest {
 
