@@ -30,7 +30,7 @@
 	<scm>
 		<connection>scm:git:git@github.com:nonononoki/reverse-country-code.git</connection>
 		<developerConnection>scm:git:ssh://github.com:nonononoki/reverse-country-code.git</developerConnection>
-		<url>https://github.com/nonononoki/reverse-country-code/tree/main</url>
+		<url>https://github.com/nonononoki/reverse-country-code/tree/master</url>
 	</scm>
 
 	<distributionManagement>
